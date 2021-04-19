@@ -9956,6 +9956,11 @@ Search.appendIndex(
             "summary": "Apply\u0020inline\u0020css\u0020inline\u0020style.",
             "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_applyInlineStyle"
         },                {
+            "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003AgetAmountFromStyleValue\u0028\u0029",
+            "name": "getAmountFromStyleValue",
+            "summary": "",
+            "url": "../classes/PhpOffice-PhpSpreadsheet-Reader-Html.html#method_getAmountFromStyleValue"
+        },                {
             "fqsen": "\\PhpOffice\\PhpSpreadsheet\\Reader\\Html\u003A\u003AgetStyleColor\u0028\u0029",
             "name": "getStyleColor",
             "summary": "Check\u0020if\u0020has\u0020\u0023,\u0020so\u0020we\u0020can\u0020get\u0020clean\u0020hex.",

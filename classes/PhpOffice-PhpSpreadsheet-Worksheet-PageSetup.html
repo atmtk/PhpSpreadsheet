@@ -51,8 +51,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
                                     </ul>
@@ -700,7 +699,7 @@ Paper size taken from Office Open XML Part 4 - Markup Language Reference, page 1
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#property_firstPageNumber">$firstPageNumber</a>
     <span>
-                &nbsp;: int            </span>
+                &nbsp;: int|null            </span>
 </dt>
 <dd>First page number.</dd>
 
@@ -752,7 +751,7 @@ Number of horizontal pages to fit on.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#property_pageOrder">$pageOrder</a>
     <span>
-                &nbsp;: mixed            </span>
+                &nbsp;: string            </span>
 </dt>
 <dd></dd>
 
@@ -799,13 +798,6 @@ Number of horizontal pages to fit on.</dd>
 <dd>Center page vertically.</dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#method___clone">__clone()</a>
-    <span>
-                        &nbsp;: mixed    </span>
-</dt>
-<dd>Implement PHP __clone to create a deep clone, not just a shallow copy.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#method___construct">__construct()</a>
     <span>
                         &nbsp;: mixed    </span>
@@ -843,7 +835,7 @@ Number of horizontal pages to fit on.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#method_getFirstPageNumber">getFirstPageNumber()</a>
     <span>
-                        &nbsp;: int    </span>
+                        &nbsp;: int|null    </span>
 </dt>
 <dd>Get first page number.</dd>
 
@@ -2990,7 +2982,7 @@ Number of horizontal pages to fit on.</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__type">int|null</span>
     <span class="phpdocumentor-signature__name">$firstPageNumber</span>
     </code>
 
@@ -3210,17 +3202,18 @@ Number of horizontal pages to fit on.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">266</span>
+    <span class="phpdocumentor-element-found-in__line">267</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type">string</span>
     <span class="phpdocumentor-signature__name">$pageOrder</span>
      = <span class="phpdocumentor-signature__default-value">self::PAGEORDER_DOWN_THEN_OVER</span></code>
 
-    
+        <section class="phpdocumentor-description"></section>
+
     
 
 </article>
@@ -3431,40 +3424,6 @@ This setting is overridden when fitToWidth and/or fitToHeight are in use</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method___clone">
-        __clone()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#method___clone" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">891</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Implement PHP __clone to create a deep clone, not just a shallow copy.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">__clone</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
         <a href="classes/PhpOffice-PhpSpreadsheet-Worksheet-PageSetup.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
@@ -3472,7 +3431,7 @@ This setting is overridden when fitToWidth and/or fitToHeight are in use</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">272</span>
 </aside>
 
         <p class="phpdocumentor-summary">Create a new PageSetup.</p>
@@ -3506,7 +3465,7 @@ This setting is overridden when fitToWidth and/or fitToHeight are in use</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">778</span>
+    <span class="phpdocumentor-element-found-in__line">779</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a new print area (e.g. &#039;A1:D10&#039; or &#039;A1:D10,G5:M20&#039;) to the list of print areas.</p>
@@ -3565,7 +3524,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">831</span>
+    <span class="phpdocumentor-element-found-in__line">832</span>
 </aside>
 
         <p class="phpdocumentor-summary">Add a new print area to the list of print areas.</p>
@@ -3652,7 +3611,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">681</span>
+    <span class="phpdocumentor-element-found-in__line">682</span>
 </aside>
 
         <p class="phpdocumentor-summary">Clear a print area.</p>
@@ -3701,7 +3660,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">491</span>
+    <span class="phpdocumentor-element-found-in__line">492</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Columns to repeat at left.</p>
@@ -3736,14 +3695,14 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">845</span>
+    <span class="phpdocumentor-element-found-in__line">846</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get first page number.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">getFirstPageNumber</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                <span class="phpdocumentor-signature__name">getFirstPageNumber</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int|null</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -3751,7 +3710,7 @@ Print areas are numbered from 1</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type">int|null</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -3770,7 +3729,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">419</span>
+    <span class="phpdocumentor-element-found-in__line">420</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Fit To Height.</p>
@@ -3804,7 +3763,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">395</span>
+    <span class="phpdocumentor-element-found-in__line">396</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Fit To Page.</p>
@@ -3838,7 +3797,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">447</span>
+    <span class="phpdocumentor-element-found-in__line">448</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Fit To Width.</p>
@@ -3872,7 +3831,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">585</span>
+    <span class="phpdocumentor-element-found-in__line">586</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get center page horizontally.</p>
@@ -3906,7 +3865,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">321</span>
+    <span class="phpdocumentor-element-found-in__line">322</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Orientation.</p>
@@ -3940,7 +3899,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">342</span>
+    <span class="phpdocumentor-element-found-in__line">343</span>
 </aside>
 
     
@@ -3972,7 +3931,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">874</span>
+    <span class="phpdocumentor-element-found-in__line">875</span>
 </aside>
 
     
@@ -4004,7 +3963,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">281</span>
+    <span class="phpdocumentor-element-found-in__line">282</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Paper Size.</p>
@@ -4038,7 +3997,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">303</span>
+    <span class="phpdocumentor-element-found-in__line">304</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Paper Size default.</p>
@@ -4072,7 +4031,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">638</span>
+    <span class="phpdocumentor-element-found-in__line">639</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get print area.</p>
@@ -4121,7 +4080,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">546</span>
+    <span class="phpdocumentor-element-found-in__line">547</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Rows to repeat at top.</p>
@@ -4156,7 +4115,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">359</span>
+    <span class="phpdocumentor-element-found-in__line">360</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get Scale.</p>
@@ -4190,7 +4149,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">609</span>
+    <span class="phpdocumentor-element-found-in__line">610</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get center page vertically.</p>
@@ -4224,7 +4183,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">475</span>
+    <span class="phpdocumentor-element-found-in__line">476</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is Columns to repeat at left set?</p>
@@ -4258,7 +4217,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">661</span>
+    <span class="phpdocumentor-element-found-in__line">662</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is print area set?</p>
@@ -4307,7 +4266,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">530</span>
+    <span class="phpdocumentor-element-found-in__line">531</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is Rows to repeat at top set?</p>
@@ -4341,7 +4300,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">869</span>
+    <span class="phpdocumentor-element-found-in__line">870</span>
 </aside>
 
         <p class="phpdocumentor-summary">Reset first page number.</p>
@@ -4375,7 +4334,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">503</span>
+    <span class="phpdocumentor-element-found-in__line">504</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Columns to repeat at left.</p>
@@ -4421,7 +4380,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">518</span>
+    <span class="phpdocumentor-element-found-in__line">519</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Columns to repeat at left by start and end.</p>
@@ -4476,14 +4435,14 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">857</span>
+    <span class="phpdocumentor-element-found-in__line">858</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set first page number.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                <span class="phpdocumentor-signature__name">setFirstPageNumber</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
+                <span class="phpdocumentor-signature__name">setFirstPageNumber</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">$this</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -4491,7 +4450,7 @@ Print areas are numbered from 1</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -4521,7 +4480,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">432</span>
+    <span class="phpdocumentor-element-found-in__line">433</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Fit To Height.</p>
@@ -4575,7 +4534,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">407</span>
+    <span class="phpdocumentor-element-found-in__line">408</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Fit To Page.</p>
@@ -4620,7 +4579,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">460</span>
+    <span class="phpdocumentor-element-found-in__line">461</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Fit To Width.</p>
@@ -4674,7 +4633,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">597</span>
+    <span class="phpdocumentor-element-found-in__line">598</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set center page horizontally.</p>
@@ -4719,7 +4678,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">333</span>
+    <span class="phpdocumentor-element-found-in__line">334</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Orientation.</p>
@@ -4765,7 +4724,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">347</span>
+    <span class="phpdocumentor-element-found-in__line">348</span>
 </aside>
 
     
@@ -4807,7 +4766,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">879</span>
+    <span class="phpdocumentor-element-found-in__line">880</span>
 </aside>
 
     
@@ -4849,7 +4808,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">293</span>
+    <span class="phpdocumentor-element-found-in__line">294</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Paper Size.</p>
@@ -4895,7 +4854,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">311</span>
+    <span class="phpdocumentor-element-found-in__line">312</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Paper Size Default.</p>
@@ -4939,7 +4898,7 @@ Print areas are numbered from 1</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">716</span>
+    <span class="phpdocumentor-element-found-in__line">717</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set print area. e.g. &#039;A1:D10&#039; or &#039;A1:D10,G5:M20&#039;.</p>
@@ -5013,7 +4972,7 @@ The &quot;I&quot; method, inserts the new print area before any specified index,
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">806</span>
+    <span class="phpdocumentor-element-found-in__line">807</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set print area.</p>
@@ -5115,7 +5074,7 @@ The &quot;I&quot; method, inserts the new print area before any specified index,
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">558</span>
+    <span class="phpdocumentor-element-found-in__line">559</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Rows to repeat at top.</p>
@@ -5161,7 +5120,7 @@ The &quot;I&quot; method, inserts the new print area before any specified index,
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">573</span>
+    <span class="phpdocumentor-element-found-in__line">574</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Rows to repeat at top by start and end.</p>
@@ -5216,7 +5175,7 @@ The &quot;I&quot; method, inserts the new print area before any specified index,
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">374</span>
+    <span class="phpdocumentor-element-found-in__line">375</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set Scale.</p>
@@ -5272,7 +5231,7 @@ This setting is overridden when fitToWidth and/or fitToHeight are in use.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Worksheet/PageSetup.php"><a href="files/src-phpspreadsheet-worksheet-pagesetup.html"><abbr title="src/PhpSpreadsheet/Worksheet/PageSetup.php">PageSetup.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">621</span>
+    <span class="phpdocumentor-element-found-in__line">622</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set center page vertically.</p>

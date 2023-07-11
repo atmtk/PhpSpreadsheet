@@ -51,8 +51,7 @@
     
     <section class="phpdocumentor-sidebar__category">
         <h2 class="phpdocumentor-sidebar__category-header">Namespaces</h2>
-                                <h3 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/default.html"><abbr title="\">Global</abbr></a></h3>
-                                        <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
+                                                <h4 class="phpdocumentor-sidebar__root-namespace"><a href="namespaces/phpoffice.html"><abbr title="\PhpOffice">PhpOffice</abbr></a></h4>
                 <ul class="phpdocumentor-list">
                                             <li><a href="namespaces/phpoffice-phpspreadsheet.html"><abbr title="\PhpOffice\PhpSpreadsheet">PhpSpreadsheet</abbr></a></li>
                                     </ul>
@@ -91,7 +90,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">7</span>
+    <span class="phpdocumentor-element-found-in__line">5</span>
 </aside>
 
         
@@ -109,13 +108,6 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_STRING_REGEXP_FRACTION">STRING_REGEXP_FRACTION</a>
-    <span>
-        &nbsp;= &#039;(-?)(\d+)\s+(\d+\/\d+)&#039;                    </span>
-</dt>
-<dd>Regular Expressions</dd>
-
                 <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_controlCharacters">$controlCharacters</a>
     <span>
@@ -133,7 +125,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_decimalSeparator">$decimalSeparator</a>
     <span>
-                &nbsp;: string            </span>
+                &nbsp;: string|null            </span>
 </dt>
 <dd>Decimal separator.</dd>
 
@@ -161,7 +153,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#property_thousandsSeparator">$thousandsSeparator</a>
     <span>
-                &nbsp;: string            </span>
+                &nbsp;: string|null            </span>
 </dt>
 <dd>Thousands separator.</dd>
 
@@ -187,19 +179,18 @@
 <dd>Convert string from one encoding to another.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertToNumberIfFraction">convertToNumberIfFraction()</a>
-    <span>
-                        &nbsp;: bool    </span>
-</dt>
-<dd>Identify whether a string contains a fractional numeric value,
-and convert it to a numeric if it is.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharacters">countCharacters()</a>
     <span>
                         &nbsp;: int    </span>
 </dt>
 <dd>Get character count.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharactersDbcs">countCharactersDbcs()</a>
+    <span>
+                        &nbsp;: int    </span>
+</dt>
+<dd>Get character count using mb_strwidth rather than mb_strlen.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_formatNumber">formatNumber()</a>
@@ -250,23 +241,23 @@ formatting information from locale.</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbIsUpper">mbIsUpper()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: bool    </span>
 </dt>
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_mbStrSplit">mbStrSplit()</a>
     <span>
-                        &nbsp;: mixed    </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd></dd>
+<dd>Splits a UTF-8 string into an array of individual characters.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_sanitizeUTF8">sanitizeUTF8()</a>
     <span>
                         &nbsp;: string    </span>
 </dt>
-<dd>Try to sanitize UTF8, stripping invalid byte sequences. Not perfect. Does not surrogate characters.</dd>
+<dd>Try to sanitize UTF8, replacing invalid sequences with Unicode substitution characters.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_setCurrencyCode">setCurrencyCode()</a>
@@ -387,44 +378,18 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
 </dt>
 <dd>Build SYLK characters array.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_returnString">returnString()</a>
+    <span>
+                        &nbsp;: string    </span>
+</dt>
+<dd>Strictly to satisfy Scrutinizer.</dd>
+
         </dl>
 
 
 
         
-    <section class="phpdocumentor-constants">
-        <h3 class="phpdocumentor-elements__header" id="constants">
-            Constants
-            <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
-        </h3>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_STRING_REGEXP_FRACTION">
-        STRING_REGEXP_FRACTION
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#constant_STRING_REGEXP_FRACTION" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">12</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Regular Expressions</p>
-
-    <code class="phpdocumentor-signature phpdocumentor-code ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-    <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">STRING_REGEXP_FRACTION</span>
-    = <span class="phpdocumentor-signature__default-value">&#039;(-?)(\d+)\s+(\d+\/\d+)&#039;</span>
-</code>
-
-
-        <section class="phpdocumentor-description"></section>
-
-    
-
-</article>
-            </section>
 
         
     <section class="phpdocumentor-properties">
@@ -448,7 +413,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">12</span>
 </aside>
 
         <p class="phpdocumentor-summary">Control characters array.</p>
@@ -480,7 +445,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">47</span>
+    <span class="phpdocumentor-element-found-in__line">40</span>
 </aside>
 
         <p class="phpdocumentor-summary">Currency code.</p>
@@ -512,14 +477,14 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 </aside>
 
         <p class="phpdocumentor-summary">Decimal separator.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$decimalSeparator</span>
     </code>
 
@@ -544,7 +509,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">61</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 </aside>
 
         <p class="phpdocumentor-summary">iconv options.</p>
@@ -576,7 +541,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">54</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 </aside>
 
         <p class="phpdocumentor-summary">Is iconv extension avalable?</p>
@@ -608,7 +573,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">19</span>
 </aside>
 
         <p class="phpdocumentor-summary">SYLK Characters array.</p>
@@ -640,14 +605,14 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">40</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 </aside>
 
         <p class="phpdocumentor-summary">Thousands separator.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__type">string|null</span>
     <span class="phpdocumentor-signature__name">$thousandsSeparator</span>
     </code>
 
@@ -676,7 +641,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">301</span>
+    <span class="phpdocumentor-element-found-in__line">294</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert from OpenXML escaped control character to PHP control character.</p>
@@ -728,7 +693,7 @@ element or in the shared string <t> element.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">323</span>
+    <span class="phpdocumentor-element-found-in__line">316</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert from PHP control character to OpenXML escaped control character.</p>
@@ -780,7 +745,7 @@ element or in the shared string <t> element.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">445</span>
+    <span class="phpdocumentor-element-found-in__line">430</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert string from one encoding to another.</p>
@@ -798,8 +763,7 @@ element or in the shared string <t> element.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$to</span>
@@ -836,53 +800,6 @@ element or in the shared string <t> element.</p>
             -public
                                     -static                    "
 >
-    <h4 class="phpdocumentor-element__name" id="method_convertToNumberIfFraction">
-        convertToNumberIfFraction()
-        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_convertToNumberIfFraction" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">563</span>
-</aside>
-
-        <p class="phpdocumentor-summary">Identify whether a string contains a fractional numeric value,
-and convert it to a numeric if it is.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">convertToNumberIfFraction</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$operand</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-        <section class="phpdocumentor-description"></section>
-
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$operand</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>string value to test</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-            <section class="phpdocumentor-description"></section>
-
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                    -static                    "
->
     <h4 class="phpdocumentor-element__name" id="method_countCharacters">
         countCharacters()
         <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharacters" class="headerlink"><i class="fas fa-link"></i></a>
@@ -890,7 +807,7 @@ and convert it to a numeric if it is.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">465</span>
+    <span class="phpdocumentor-element-found-in__line">449</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get character count.</p>
@@ -908,8 +825,61 @@ and convert it to a numeric if it is.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$encoding</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;UTF-8&#039;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Encoding</p>
+</section>
 
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Character count</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_countCharactersDbcs">
+        countCharactersDbcs()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_countCharactersDbcs" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">461</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Get character count using mb_strwidth rather than mb_strlen.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">countCharactersDbcs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$textValue</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$encoding</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&#039;UTF-8&#039;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$textValue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$encoding</span>
@@ -945,7 +915,7 @@ and convert it to a numeric if it is.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">370</span>
+    <span class="phpdocumentor-element-found-in__line">362</span>
 </aside>
 
         <p class="phpdocumentor-summary">Formats a numeric value as a string for output in various output writers forcing
@@ -953,7 +923,7 @@ point as decimal separator in case locale is other than English.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">formatNumber</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numericValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">formatNumber</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">float|int|string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$numericValue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -961,7 +931,7 @@ point as decimal separator in case locale is other than English.</p>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$numericValue</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">float|int|string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
@@ -991,7 +961,7 @@ point as decimal separator in case locale is other than English.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">650</span>
+    <span class="phpdocumentor-element-found-in__line">612</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the currency code. If it has not yet been set explicitly, try to obtain the
@@ -1026,7 +996,7 @@ point as decimal separator in case locale is other than English.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">584</span>
+    <span class="phpdocumentor-element-found-in__line">550</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the decimal separator. If it has not yet been set explicitly, try to obtain number
@@ -1061,7 +1031,7 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">247</span>
+    <span class="phpdocumentor-element-found-in__line">240</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get whether iconv extension is available.</p>
@@ -1095,7 +1065,7 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">617</span>
+    <span class="phpdocumentor-element-found-in__line">581</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get the thousands separator. If it has not yet been set explicitly, try to obtain number
@@ -1130,7 +1100,7 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">357</span>
+    <span class="phpdocumentor-element-found-in__line">351</span>
 </aside>
 
         <p class="phpdocumentor-summary">Check if a string contains UTF8 data.</p>
@@ -1148,8 +1118,7 @@ formatting information from locale.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1175,20 +1144,20 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">521</span>
+    <span class="phpdocumentor-element-found-in__line">509</span>
 </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">mbIsUpper</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$character</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">mbIsUpper</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$character</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$character</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1198,7 +1167,7 @@ formatting information from locale.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1217,20 +1186,22 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">526</span>
+    <span class="phpdocumentor-element-found-in__line">517</span>
 </aside>
 
-    
+        <p class="phpdocumentor-summary">Splits a UTF-8 string into an array of individual characters.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">mbStrSplit</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">mbStrSplit</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$string</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-    
+        <section class="phpdocumentor-description"></section>
+
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$string</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                 
@@ -1240,7 +1211,7 @@ formatting information from locale.</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 
@@ -1259,10 +1230,10 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">337</span>
+    <span class="phpdocumentor-element-found-in__line">326</span>
 </aside>
 
-        <p class="phpdocumentor-summary">Try to sanitize UTF8, stripping invalid byte sequences. Not perfect. Does not surrogate characters.</p>
+        <p class="phpdocumentor-summary">Try to sanitize UTF8, replacing invalid sequences with Unicode substitution characters.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1277,8 +1248,7 @@ formatting information from locale.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
+                
             </dd>
             </dl>
 
@@ -1304,7 +1274,7 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">677</span>
+    <span class="phpdocumentor-element-found-in__line">639</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the currency code. Only used by NumberFormat::toFormattedString()
@@ -1351,7 +1321,7 @@ formatting information from locale.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">572</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the decimal separator. Only used by NumberFormat::toFormattedString()
@@ -1398,7 +1368,7 @@ to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpre
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">639</span>
+    <span class="phpdocumentor-element-found-in__line">603</span>
 </aside>
 
         <p class="phpdocumentor-summary">Set the thousands separator. Only used by NumberFormat::toFormattedString()
@@ -1445,7 +1415,7 @@ to format output by \PhpOffice\PhpSpreadsheet\Writer\Html and \PhpOffice\PhpSpre
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">541</span>
+    <span class="phpdocumentor-element-found-in__line">532</span>
 </aside>
 
         <p class="phpdocumentor-summary">Reverse the case of a string, so that all uppercase characters become lowercase
@@ -1492,7 +1462,7 @@ and all lowercase characters become uppercase.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">503</span>
+    <span class="phpdocumentor-element-found-in__line">493</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a UTF-8 encoded string to lower case.</p>
@@ -1538,7 +1508,7 @@ and all lowercase characters become uppercase.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">516</span>
+    <span class="phpdocumentor-element-found-in__line">504</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a UTF-8 encoded string to title/proper case
@@ -1585,7 +1555,7 @@ and all lowercase characters become uppercase.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">491</span>
+    <span class="phpdocumentor-element-found-in__line">483</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert a UTF-8 encoded string to upper case.</p>
@@ -1631,14 +1601,14 @@ and all lowercase characters become uppercase.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">479</span>
+    <span class="phpdocumentor-element-found-in__line">473</span>
 </aside>
 
         <p class="phpdocumentor-summary">Get a substring of a UTF-8 encoded string.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">substring</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$textValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$length</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">substring</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$textValue</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$offset</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$length</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -1664,7 +1634,7 @@ and all lowercase characters become uppercase.</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$length</span>
-                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>Maximum number of characters in substring</p>
@@ -1695,7 +1665,7 @@ and all lowercase characters become uppercase.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">689</span>
+    <span class="phpdocumentor-element-found-in__line">651</span>
 </aside>
 
         <p class="phpdocumentor-summary">Convert SYLK encoded string to UTF-8.</p>
@@ -1713,7 +1683,8 @@ and all lowercase characters become uppercase.</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>SYLK encoded string</p>
+</section>
 
             </dd>
             </dl>
@@ -1741,7 +1712,7 @@ and all lowercase characters become uppercase.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">713</span>
+    <span class="phpdocumentor-element-found-in__line">675</span>
 </aside>
 
         <p class="phpdocumentor-summary">Retrieve any leading numeric part of a string, or return the full string if no leading numeric
@@ -1788,7 +1759,7 @@ and all lowercase characters become uppercase.</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">425</span>
+    <span class="phpdocumentor-element-found-in__line">413</span>
 </aside>
 
         <p class="phpdocumentor-summary">Converts a UTF-8 string into BIFF8 Unicode string data (16-bit string length)
@@ -1838,7 +1809,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">391</span>
+    <span class="phpdocumentor-element-found-in__line">381</span>
 </aside>
 
         <p class="phpdocumentor-summary">Converts a UTF-8 string into BIFF8 Unicode string data (8-bit string length)
@@ -1897,7 +1868,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">275</span>
+    <span class="phpdocumentor-element-found-in__line">268</span>
 </aside>
 
     
@@ -1929,7 +1900,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">66</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 </aside>
 
         <p class="phpdocumentor-summary">Build control characters array.</p>
@@ -1963,7 +1934,7 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">73</span>
 </aside>
 
         <p class="phpdocumentor-summary">Build SYLK characters array.</p>
@@ -1979,6 +1950,51 @@ see OpenOffice.org&#039;s Documentation of the Microsoft Excel File Format, sect
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
+            &mdash;
+            <section class="phpdocumentor-description"></section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_returnString">
+        returnString()
+        <a href="classes/PhpOffice-PhpSpreadsheet-Shared-StringHelper.html#method_returnString" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/PhpSpreadsheet/Shared/StringHelper.php"><a href="files/src-phpspreadsheet-shared-stringhelper.html"><abbr title="src/PhpSpreadsheet/Shared/StringHelper.php">StringHelper.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">343</span>
+</aside>
+
+        <p class="phpdocumentor-summary">Strictly to satisfy Scrutinizer.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>    <span class="phpdocumentor-signature__name">returnString</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$value</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
             <section class="phpdocumentor-description"></section>
 

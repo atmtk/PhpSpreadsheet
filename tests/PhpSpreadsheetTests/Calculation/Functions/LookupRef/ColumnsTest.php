@@ -3,29 +3,24 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\LookupRef;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
 use PhpOffice\PhpSpreadsheet\Calculation\LookupRef;
 use PHPUnit\Framework\TestCase;
 
 class ColumnsTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerCOLUMNS
      *
      * @param mixed $expectedResult
+     * @param null|array|string $arg
      */
-    public function testCOLUMNS($expectedResult, ...$args): void
+    public function testCOLUMNS($expectedResult, $arg): void
     {
-        $result = LookupRef::COLUMNS(...$args);
+        $result = LookupRef\RowColumnInformation::COLUMNS($arg);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerCOLUMNS(): array
+    public static function providerCOLUMNS(): array
     {
         return require 'tests/data/Calculation/LookupRef/COLUMNS.php';
     }
@@ -42,7 +37,7 @@ class ColumnsTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerColumnsArray(): array
+    public static function providerColumnsArray(): array
     {
         return [
             [

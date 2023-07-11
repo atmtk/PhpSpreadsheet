@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class CommentsTest extends AbstractFunctional
 {
-    public function providerFormats(): array
+    public static function providerFormats(): array
     {
         return [
             ['Html'],
@@ -22,7 +22,7 @@ class CommentsTest extends AbstractFunctional
      *
      * @dataProvider providerFormats
      */
-    public function testComments($format): void
+    public function testComments(string $format): void
     {
         $spreadsheet = new Spreadsheet();
 

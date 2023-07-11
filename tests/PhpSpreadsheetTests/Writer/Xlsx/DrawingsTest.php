@@ -8,7 +8,9 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\BaseDrawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Worksheet\MemoryDrawing;
 use PhpOffice\PhpSpreadsheetTests\Functional\AbstractFunctional;
 
 class DrawingsTest extends AbstractFunctional
@@ -28,6 +30,8 @@ class DrawingsTest extends AbstractFunctional
 
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($reloadedSpreadsheet);
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -59,6 +63,8 @@ class DrawingsTest extends AbstractFunctional
 
         // Fake assert. The only thing we need is to ensure the file is loaded without exception
         self::assertNotNull($reloadedSpreadsheet);
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -82,7 +88,7 @@ class DrawingsTest extends AbstractFunctional
         $sheet = $spreadsheet->getActiveSheet();
         $comment = $sheet->getComment('A1');
 
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 178);
@@ -96,6 +102,8 @@ class DrawingsTest extends AbstractFunctional
         unlink($tempFileName);
 
         self::assertNotNull($reloadedSpreadsheet);
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -119,7 +127,7 @@ class DrawingsTest extends AbstractFunctional
         $comment->setSizeAsBackgroundImage();
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_GIF);
@@ -136,7 +144,7 @@ class DrawingsTest extends AbstractFunctional
         $comment->setSizeAsBackgroundImage();
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -154,7 +162,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A1');
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 150);
@@ -165,7 +173,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A2');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -173,7 +181,8 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
 
         unlink($tempFileName);
-        self::assertNotNull($reloadedSpreadsheet);
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
     }
 
     /**
@@ -199,7 +208,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '75pt');
 
         $comment = $sheet->getComment('A1');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_PNG);
@@ -218,7 +227,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '112.5pt');
 
         $comment = $sheet->getComment('A2');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_GIF);
@@ -237,7 +246,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '37.5pt');
 
         $comment = $sheet->getComment('A3');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_JPEG);
@@ -256,7 +265,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '52.5pt');
 
         $comment = $sheet->getComment('A4');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -275,7 +284,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '52.5pt');
 
         $comment = $sheet->getComment('A5');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -287,6 +296,7 @@ class DrawingsTest extends AbstractFunctional
         $drawing->setPath('tests/data/Writer/XLSX/orange_square_24_bit.bmp');
         self::assertEquals($drawing->getWidth(), 70);
         self::assertEquals($drawing->getHeight(), 70);
+        self::assertSame(IMAGETYPE_PNG, $drawing->getImageTypeForSave());
         $comment = $sheet->getComment('A6');
         $comment->setBackgroundImage($drawing);
         $comment->setSizeAsBackgroundImage();
@@ -294,7 +304,7 @@ class DrawingsTest extends AbstractFunctional
         self::assertEquals($comment->getHeight(), '52.5pt');
 
         $comment = $sheet->getComment('A6');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_BMP);
@@ -304,8 +314,10 @@ class DrawingsTest extends AbstractFunctional
         $drawing = new Drawing();
         $drawing->setName('Purple Square');
         $drawing->setPath('tests/data/Writer/XLSX/purple_square.tiff');
+        self::assertStringContainsString('purple_square.tiff', $drawing->getFilename());
+        self::assertFalse($drawing->getIsUrl());
         $comment = $sheet->getComment('A7');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertFalse($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getType(), IMAGETYPE_UNKNOWN);
@@ -314,7 +326,7 @@ class DrawingsTest extends AbstractFunctional
             $comment->setBackgroundImage($drawing);
             self::fail('Should throw exception when attempting to add tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -322,7 +334,15 @@ class DrawingsTest extends AbstractFunctional
             $drawing->getImageTypeForSave();
             self::fail('Should throw exception when attempting to get image type for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
+            self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
+        }
+
+        try {
+            $drawing->getMediaFilename();
+            self::fail('Should throw exception when attempting to get media file name for tiff');
+        } catch (PhpSpreadsheetException $e) {
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -330,7 +350,7 @@ class DrawingsTest extends AbstractFunctional
             $drawing->getImageFileExtensionForSave();
             self::fail('Should throw exception when attempting to get image file extention for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -338,7 +358,7 @@ class DrawingsTest extends AbstractFunctional
             $drawing->getImageMimeType();
             self::fail('Should throw exception when attempting to get image mime type for tiff');
         } catch (PhpSpreadsheetException $e) {
-            self::assertTrue($e instanceof PhpSpreadsheetException);
+            self::assertInstanceOf(PhpSpreadsheetException::class, $e);
             self::assertEquals($e->getMessage(), 'Unsupported image type in comment background. Supported types: PNG, JPEG, BMP, GIF.');
         }
 
@@ -355,7 +375,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A1');
         self::assertEquals($comment->getWidth(), '75pt');
         self::assertEquals($comment->getHeight(), '75pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 100);
@@ -366,7 +386,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A2');
         self::assertEquals($comment->getWidth(), '112.5pt');
         self::assertEquals($comment->getHeight(), '112.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 150);
@@ -377,7 +397,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A3');
         self::assertEquals($comment->getWidth(), '37.5pt');
         self::assertEquals($comment->getHeight(), '37.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 50);
@@ -388,7 +408,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A4');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -399,7 +419,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A5');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -410,7 +430,7 @@ class DrawingsTest extends AbstractFunctional
         $comment = $sheet->getComment('A6');
         self::assertEquals($comment->getWidth(), '52.5pt');
         self::assertEquals($comment->getHeight(), '52.5pt');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertTrue($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 70);
@@ -419,7 +439,7 @@ class DrawingsTest extends AbstractFunctional
 
         // Check seventh image in comment background
         $comment = $sheet->getComment('A7');
-        self::assertTrue($comment instanceof Comment);
+        self::assertInstanceOf(Comment::class, $comment);
         self::assertFalse($comment->hasBackgroundImage());
         self::assertTrue($comment->getBackgroundImage() instanceof Drawing);
         self::assertEquals($comment->getBackgroundImage()->getWidth(), 0);
@@ -428,6 +448,160 @@ class DrawingsTest extends AbstractFunctional
 
         unlink($tempFileName);
 
-        self::assertNotNull($reloadedSpreadsheet);
+        $spreadsheet->disconnectWorksheets();
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * Test save and load XLSX file with drawing image that coordinate is two cell anchor.
+     */
+    public function testTwoCellAnchorDrawing(): void
+    {
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Add gif image that coordinates is two cell anchor.
+        $drawing = new Drawing();
+        $drawing->setName('Green Square');
+        $drawing->setPath('tests/data/Writer/XLSX/green_square.gif');
+        self::assertEquals($drawing->getWidth(), 150);
+        self::assertEquals($drawing->getHeight(), 150);
+        $drawing->setCoordinates('A1');
+        $drawing->setOffsetX(30);
+        $drawing->setOffsetY(10);
+        $drawing->setCoordinates2('E8');
+        $drawing->setOffsetX2(-50);
+        $drawing->setOffsetY2(-20);
+        $drawing->setWorksheet($sheet);
+
+        // Write file
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $spreadsheet->disconnectWorksheets();
+        $rsheet = $reloadedSpreadsheet->getActiveSheet();
+
+        // Check image coordinates.
+        $drawingCollection = $rsheet->getDrawingCollection();
+        self::assertCount(1, $drawingCollection);
+        $drawing = $drawingCollection[0];
+        self::assertNotNull($drawing);
+
+        self::assertSame(150, $drawing->getWidth());
+        self::assertSame(150, $drawing->getHeight());
+        self::assertSame('A1', $drawing->getCoordinates());
+        self::assertSame(30, $drawing->getOffsetX());
+        self::assertSame(10, $drawing->getOffsetY());
+        self::assertSame('E8', $drawing->getCoordinates2());
+        self::assertSame(-50, $drawing->getOffsetX2());
+        self::assertSame(-20, $drawing->getOffsetY2());
+        self::assertSame($rsheet, $drawing->getWorksheet());
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    /**
+     * Test editAs attribute for two-cell anchors.
+     *
+     * @dataProvider providerEditAs
+     */
+    public function testTwoCellEditAs(string $editAs, ?string $expectedResult = null): void
+    {
+        if ($expectedResult === null) {
+            $expectedResult = $editAs;
+        }
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Add gif image that coordinates is two cell anchor.
+        $drawing = new Drawing();
+        $drawing->setName('Green Square');
+        $drawing->setPath('tests/data/Writer/XLSX/green_square.gif');
+        self::assertEquals($drawing->getWidth(), 150);
+        self::assertEquals($drawing->getHeight(), 150);
+        $drawing->setCoordinates('A1');
+        $drawing->setOffsetX(30);
+        $drawing->setOffsetY(10);
+        $drawing->setCoordinates2('E8');
+        $drawing->setOffsetX2(-50);
+        $drawing->setOffsetY2(-20);
+        if ($editAs !== '') {
+            $drawing->setEditAs($editAs);
+        }
+        $drawing->setWorksheet($sheet);
+
+        // Write file
+        $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+        $spreadsheet->disconnectWorksheets();
+        $rsheet = $reloadedSpreadsheet->getActiveSheet();
+
+        // Check image coordinates.
+        $drawingCollection = $rsheet->getDrawingCollection();
+        $drawing = $drawingCollection[0];
+        self::assertNotNull($drawing);
+
+        self::assertSame(150, $drawing->getWidth());
+        self::assertSame(150, $drawing->getHeight());
+        self::assertSame('A1', $drawing->getCoordinates());
+        self::assertSame(30, $drawing->getOffsetX());
+        self::assertSame(10, $drawing->getOffsetY());
+        self::assertSame('E8', $drawing->getCoordinates2());
+        self::assertSame(-50, $drawing->getOffsetX2());
+        self::assertSame(-20, $drawing->getOffsetY2());
+        self::assertSame($rsheet, $drawing->getWorksheet());
+        self::assertSame($expectedResult, $drawing->getEditAs());
+        $reloadedSpreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerEditAs(): array
+    {
+        return [
+            'absolute' => ['absolute'],
+            'onecell' => ['oneCell'],
+            'twocell' => ['twoCell'],
+            'unset (will be treated as twoCell)' => [''],
+            'unknown (will be treated as twoCell)' => ['unknown', ''],
+        ];
+    }
+
+    public function testMemoryDrawingDuplicateResource(): void
+    {
+        $gdImage = imagecreatetruecolor(120, 20);
+        $textColor = ($gdImage === false) ? false : imagecolorallocate($gdImage, 255, 255, 255);
+        if ($gdImage === false || $textColor === false) {
+            self::fail('imagecreatetruecolor or imagecolorallocate failed');
+        } else {
+            $spreadsheet = new Spreadsheet();
+            $aSheet = $spreadsheet->getActiveSheet();
+            imagestring($gdImage, 1, 5, 5, 'Created with PhpSpreadsheet', $textColor);
+            $listOfModes = [
+                BaseDrawing::EDIT_AS_TWOCELL,
+                BaseDrawing::EDIT_AS_ABSOLUTE,
+                BaseDrawing::EDIT_AS_ONECELL,
+            ];
+
+            foreach ($listOfModes as $i => $mode) {
+                $drawing = new MemoryDrawing();
+                $drawing->setName('In-Memory image ' . $i);
+                $drawing->setDescription('In-Memory image ' . $i);
+
+                $drawing->setCoordinates('A' . ((4 * $i) + 1));
+                $drawing->setCoordinates2('D' . ((4 * $i) + 4));
+                $drawing->setEditAs($mode);
+
+                $drawing->setImageResource($gdImage);
+                $drawing->setRenderingFunction(
+                    MemoryDrawing::RENDERING_JPEG
+                );
+
+                $drawing->setMimeType(MemoryDrawing::MIMETYPE_DEFAULT);
+
+                $drawing->setWorksheet($aSheet);
+            }
+            $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
+            $spreadsheet->disconnectWorksheets();
+
+            foreach ($reloadedSpreadsheet->getActiveSheet()->getDrawingCollection() as $index => $pDrawing) {
+                self::assertEquals($listOfModes[$index], $pDrawing->getEditAs(), 'functional test drawing twoCellAnchor');
+            }
+            $reloadedSpreadsheet->disconnectWorksheets();
+        }
     }
 }

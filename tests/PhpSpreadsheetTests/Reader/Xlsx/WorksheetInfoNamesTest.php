@@ -3,7 +3,6 @@
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Xlsx;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
-use PhpOffice\PhpSpreadsheet\Shared\File;
 use PHPUnit\Framework\TestCase;
 
 class WorksheetInfoNamesTest extends TestCase
@@ -76,5 +75,30 @@ class WorksheetInfoNamesTest extends TestCase
         $expected = ['transactions'];
 
         self::assertEquals($expected, $actual);
+    }
+
+    public function testListWorksheetNamesChartSheet(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/ChartSheet.xlsx';
+        $reader = new Xlsx();
+        $actual = $reader->listWorksheetNames($filename);
+
+        $expected = ['Sheet1', 'Chart1'];
+
+        self::assertEquals($expected, $actual);
+    }
+
+    public function testListWorksheetInfoChartSheet(): void
+    {
+        $filename = 'tests/data/Reader/XLSX/ChartSheet.xlsx';
+        $reader = new Xlsx();
+        $actual = $reader->listWorksheetInfo($filename);
+
+        $chartSheetInfo = $actual[1];
+
+        self::assertSame('Chart1', $chartSheetInfo['worksheetName']);
+        self::assertSame(-1, $chartSheetInfo['lastColumnIndex']);
+        self::assertSame(0, $chartSheetInfo['totalRows']);
+        self::assertSame(0, $chartSheetInfo['totalColumns']);
     }
 }

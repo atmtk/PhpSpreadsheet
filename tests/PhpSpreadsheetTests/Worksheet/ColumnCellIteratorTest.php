@@ -40,11 +40,12 @@ class ColumnCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
             self::assertNotNull($ColumnCell);
+            /** @scrutinizer ignore-call */
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
             self::assertInstanceOf(Cell::class, $ColumnCell);
         }
-        $transposed = array_map(null, ...self::CELL_VALUES);
+        $transposed = array_map(/** @scrutinizer ignore-type */ null, ...self::CELL_VALUES);
         self::assertSame($transposed[0], $values);
         $spreadsheet->disconnectWorksheets();
     }
@@ -60,6 +61,7 @@ class ColumnCellIteratorTest extends TestCase
         $values = [];
         foreach ($iterator as $key => $ColumnCell) {
             self::assertNotNull($ColumnCell);
+            /** @scrutinizer ignore-call */
             $values[] = $ColumnCell->getValue();
             self::assertEquals($ColumnCellIndexResult++, $key);
             self::assertInstanceOf(Cell::class, $ColumnCell);
@@ -81,6 +83,7 @@ class ColumnCellIteratorTest extends TestCase
         while ($iterator->valid()) {
             $current = $iterator->current();
             self::assertNotNull($current);
+            /** @scrutinizer ignore-call */
             $cell = $current->getCoordinate();
             $values[] = $sheet->getCell($cell)->getValue();
             $iterator->prev();
@@ -112,7 +115,7 @@ class ColumnCellIteratorTest extends TestCase
         $iterator->seek(2);
     }
 
-    public function xtestPrevOutOfRange(): void
+    public function testPrevOutOfRange(): void
     {
         $spreadsheet = new Spreadsheet();
         $sheet = self::getPopulatedSheet($spreadsheet);

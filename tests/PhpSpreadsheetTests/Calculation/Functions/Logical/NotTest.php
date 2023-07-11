@@ -3,17 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Logical;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical;
-use PHPUnit\Framework\TestCase;
 
-class NotTest extends TestCase
+class NotTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerNOT
      *
@@ -21,11 +13,10 @@ class NotTest extends TestCase
      */
     public function testNOT($expectedResult, ...$args): void
     {
-        $result = Logical::NOT(...$args);
-        self::assertEquals($expectedResult, $result);
+        $this->runTestCase('NOT', $expectedResult, ...$args);
     }
 
-    public function providerNOT(): array
+    public static function providerNOT(): array
     {
         return require 'tests/data/Calculation/Logical/NOT.php';
     }
@@ -42,7 +33,7 @@ class NotTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerNotArray(): array
+    public static function providerNotArray(): array
     {
         return [
             'vector' => [

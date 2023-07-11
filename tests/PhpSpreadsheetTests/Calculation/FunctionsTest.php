@@ -76,23 +76,21 @@ class FunctionsTest extends TestCase
 
     /**
      * @dataProvider providerIfCondition
-     *
-     * @param mixed $expectedResult
      */
-    public function testIfCondition($expectedResult, ...$args): void
+    public function testIfCondition(string $expectedResult, string $args): void
     {
-        $result = Functions::ifCondition(...$args);
+        $result = Functions::ifCondition($args);
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerIfCondition(): array
+    public static function providerIfCondition(): array
     {
         return require 'tests/data/Calculation/Functions/IF_CONDITION.php';
     }
 
     public function testDeprecatedIsFormula(): void
     {
-        $result = Functions::isFormula('="STRING"');
+        $result = /** @scrutinizer ignore-deprecated */ Functions::isFormula('="STRING"');
         self::assertEquals(ExcelError::REF(), $result);
     }
 

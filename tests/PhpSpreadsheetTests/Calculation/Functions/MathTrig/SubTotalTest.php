@@ -22,7 +22,7 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUBTOTAL(): array
+    public static function providerSUBTOTAL(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUBTOTAL.php';
     }
@@ -100,7 +100,7 @@ class SubTotalTest extends AllSetupTeardown
         self::assertEqualsWithDelta($expectedResult, $result, 1E-12);
     }
 
-    public function providerSUBTOTALHIDDEN(): array
+    public static function providerSUBTOTALHIDDEN(): array
     {
         return require 'tests/data/Calculation/MathTrig/SUBTOTALHIDDEN.php';
     }
@@ -126,5 +126,33 @@ class SubTotalTest extends AllSetupTeardown
         $maxRow = $sheet->getHighestRow();
         $sheet->getCell('H1')->setValue("=SUBTOTAL(9, A1:$maxCol$maxRow)");
         self::assertEquals(362, $sheet->getCell('H1')->getCalculatedValue());
+    }
+
+    public function testRefError(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, #REF!)');
+        self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function testSecondaryRefError(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, B1:B9,#REF!,C1:C9)');
+        self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function testNonStringSingleCellRefError(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, 1, C1, Sheet99!A11)');
+        self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
+    }
+
+    public function testNonStringCellRangeRefError(): void
+    {
+        $sheet = $this->getSheet();
+        $sheet->getCell('A1')->setValue('=SUBTOTAL(9, Sheet99!A1)');
+        self::assertEquals('#REF!', $sheet->getCell('A1')->getCalculatedValue());
     }
 }

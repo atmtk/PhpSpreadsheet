@@ -39,7 +39,7 @@ class MergedCellTest extends TestCase
         $spreadSheet->disconnectWorksheets();
     }
 
-    public function providerWorksheetFormulaeColumns(): array
+    public static function providerWorksheetFormulaeColumns(): array
     {
         return [
             ['=SUM(A1:A5)', 6.6],
@@ -81,7 +81,7 @@ class MergedCellTest extends TestCase
         $spreadSheet->disconnectWorksheets();
     }
 
-    public function providerWorksheetFormulaeRows(): array
+    public static function providerWorksheetFormulaeRows(): array
     {
         return [
             ['=SUM(A1:E1)', 6.6],
@@ -100,7 +100,7 @@ class MergedCellTest extends TestCase
             $sheet->mergeCells($range);
             self::fail("Expected invalid merge range $range");
         } catch (SpreadException $e) {
-            self::assertSame('Merge must be set on a range of cells.', $e->getMessage());
+            self::assertSame('Merge must be on a valid range of cells.', $e->getMessage());
         }
     }
 
@@ -109,7 +109,8 @@ class MergedCellTest extends TestCase
         $spreadSheet = new Spreadsheet();
 
         $dataSheet = $spreadSheet->getActiveSheet();
-        $this->setBadRange($dataSheet, 'B1');
+        // TODO - Reinstate full validation and disallow single cell merging for version 2.0
+//        $this->setBadRange($dataSheet, 'B1');
         $this->setBadRange($dataSheet, 'Invalid');
         $this->setBadRange($dataSheet, '1');
         $this->setBadRange($dataSheet, 'C');

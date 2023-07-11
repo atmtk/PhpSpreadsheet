@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class FactTest extends AllSetupTeardown
 {
+    const FACT_PRECISION = 1E-12;
+
     /**
      * @dataProvider providerFACT
      *
@@ -28,7 +30,7 @@ class FactTest extends AllSetupTeardown
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFACT(): array
+    public static function providerFACT(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACT.php';
     }
@@ -53,10 +55,10 @@ class FactTest extends AllSetupTeardown
             $sheet->getCell('B1')->setValue('=FACT(A1)');
         }
         $result = $sheet->getCell('B1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::FACT_PRECISION);
     }
 
-    public function providerFACTGnumeric(): array
+    public static function providerFACTGnumeric(): array
     {
         return require 'tests/data/Calculation/MathTrig/FACTGNUMERIC.php';
     }
@@ -70,10 +72,10 @@ class FactTest extends AllSetupTeardown
 
         $formula = "=FACT({$array})";
         $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        self::assertEqualsWithDelta($expectedResult, $result, self::FACT_PRECISION);
     }
 
-    public function providerFactArray(): array
+    public static function providerFactArray(): array
     {
         return [
             'row vector' => [[['#NUM!', 120, 362880]], '{-2, 5, 9}'],

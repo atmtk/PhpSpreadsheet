@@ -2,10 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\Dollar;
-use PHPUnit\Framework\TestCase;
-
-class UsDollarTest extends TestCase
+class UsDollarTest extends AllSetupTeardown
 {
     /**
      * @dataProvider providerUSDOLLAR
@@ -14,11 +11,10 @@ class UsDollarTest extends TestCase
      */
     public function testUSDOLLAR($expectedResult, ...$args): void
     {
-        $result = Dollar::format(...$args);
-        self::assertSame($expectedResult, $result);
+        $this->runTestCase('USDOLLAR', $expectedResult, $args);
     }
 
-    public function providerUSDOLLAR(): array
+    public static function providerUSDOLLAR(): array
     {
         return require 'tests/data/Calculation/Financial/USDOLLAR.php';
     }

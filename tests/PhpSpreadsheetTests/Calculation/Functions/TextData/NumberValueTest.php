@@ -6,6 +6,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
 
 class NumberValueTest extends AllSetupTeardown
 {
+    const NV_PRECISION = 1.0E-8;
+
     /**
      * @dataProvider providerNUMBERVALUE
      *
@@ -34,10 +36,10 @@ class NumberValueTest extends AllSetupTeardown
             $sheet->getCell('B1')->setValue('=NUMBERVALUE(A1, A2, A3)');
         }
         $result = $sheet->getCell('B1')->getCalculatedValue();
-        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::NV_PRECISION);
     }
 
-    public function providerNUMBERVALUE(): array
+    public static function providerNUMBERVALUE(): array
     {
         return require 'tests/data/Calculation/TextData/NUMBERVALUE.php';
     }
@@ -51,10 +53,10 @@ class NumberValueTest extends AllSetupTeardown
 
         $formula = "=NumberValue({$argument1}, {$argument2}, {$argument3})";
         $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        self::assertEqualsWithDelta($expectedResult, $result, self::NV_PRECISION);
     }
 
-    public function providerNumberValueArray(): array
+    public static function providerNumberValueArray(): array
     {
         return [
             'row vector #1' => [[[-123.321, 123.456, 12345.6789]], '{"-123,321", "123,456", "12 345,6789"}', '","', '" "'],

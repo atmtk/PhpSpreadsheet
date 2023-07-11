@@ -107,6 +107,10 @@ class Properties
      */
     private $customProperties = [];
 
+    private string $hyperlinkBase = '';
+
+    private string $viewport = '';
+
     /**
      * Create a new Document Properties instance.
      */
@@ -115,7 +119,7 @@ class Properties
         // Initialise values
         $this->lastModifiedBy = $this->creator;
         $this->created = self::intOrFloatTimestamp(null);
-        $this->modified = self::intOrFloatTimestamp(null);
+        $this->modified = $this->created;
     }
 
     /**
@@ -171,9 +175,9 @@ class Properties
             if (is_numeric($timestamp)) {
                 $timestamp = (float) $timestamp;
             } else {
-                $timestamp = preg_replace('/[.][0-9]*$/', '', $timestamp) ?? '';
-                $timestamp = preg_replace('/^(\\d{4})- (\\d)/', '$1-0$2', $timestamp) ?? '';
-                $timestamp = preg_replace('/^(\\d{4}-\\d{2})- (\\d)/', '$1-0$2', $timestamp) ?? '';
+                $timestamp = (string) preg_replace('/[.][0-9]*$/', '', $timestamp);
+                $timestamp = (string) preg_replace('/^(\\d{4})- (\\d)/', '$1-0$2', $timestamp);
+                $timestamp = (string) preg_replace('/^(\\d{4}-\\d{2})- (\\d)/', '$1-0$2', $timestamp);
                 $timestamp = (float) (new DateTime($timestamp))->format('U');
             }
         }
@@ -434,7 +438,7 @@ class Properties
      *
      * @param mixed $propertyValue
      * @param string $propertyType
-     *      'i'    : Integer
+     *   'i' : Integer
      *   'f' : Floating Point
      *   's' : String
      *   'd' : Date/Time
@@ -533,5 +537,31 @@ class Properties
     public static function convertPropertyType(string $propertyType): string
     {
         return self::PROPERTY_TYPE_ARRAY[$propertyType] ?? self::PROPERTY_TYPE_UNKNOWN;
+    }
+
+    public function getHyperlinkBase(): string
+    {
+        return $this->hyperlinkBase;
+    }
+
+    public function setHyperlinkBase(string $hyperlinkBase): self
+    {
+        $this->hyperlinkBase = $hyperlinkBase;
+
+        return $this;
+    }
+
+    public function getViewport(): string
+    {
+        return $this->viewport;
+    }
+
+    public const SUGGESTED_VIEWPORT = 'width=device-width, initial-scale=1';
+
+    public function setViewport(string $viewport): self
+    {
+        $this->viewport = $viewport;
+
+        return $this;
     }
 }

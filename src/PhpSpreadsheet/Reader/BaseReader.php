@@ -51,10 +51,11 @@ abstract class BaseReader implements IReader
      */
     protected $readFilter;
 
+    /** @var resource */
     protected $fileHandle;
 
     /**
-     * @var XmlScanner
+     * @var ?XmlScanner
      */
     protected $securityScanner;
 
@@ -134,8 +135,17 @@ abstract class BaseReader implements IReader
         return $this;
     }
 
-    public function getSecurityScanner()
+    public function getSecurityScanner(): ?XmlScanner
     {
+        return $this->securityScanner;
+    }
+
+    public function getSecurityScannerOrThrow(): XmlScanner
+    {
+        if ($this->securityScanner === null) {
+            throw new ReaderException('Security scanner is unexpectedly null');
+        }
+
         return $this->securityScanner;
     }
 
@@ -143,6 +153,12 @@ abstract class BaseReader implements IReader
     {
         if (((bool) ($flags & self::LOAD_WITH_CHARTS)) === true) {
             $this->setIncludeCharts(true);
+        }
+        if (((bool) ($flags & self::READ_DATA_ONLY)) === true) {
+            $this->setReadDataOnly(true);
+        }
+        if (((bool) ($flags & self::SKIP_EMPTY_CELLS) || (bool) ($flags & self::IGNORE_EMPTY_CELLS)) === true) {
+            $this->setReadEmptyCells(false);
         }
     }
 
@@ -153,6 +169,10 @@ abstract class BaseReader implements IReader
 
     /**
      * Loads Spreadsheet from file.
+     *
+     * @param int $flags the optional second parameter flags may be used to identify specific elements
+     *                       that should be loaded, but which won't be loaded by default, using these values:
+     *                            IReader::LOAD_WITH_CHARTS - Include any charts that are defined in the loaded file
      */
     public function load(string $filename, int $flags = 0): Spreadsheet
     {

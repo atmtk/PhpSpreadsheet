@@ -11,6 +11,7 @@ class FormulaTextTest extends AllSetupTeardown
 {
     /**
      * @param mixed $value
+     *
      * @dataProvider providerFormulaText
      */
     public function testFormulaText(string $expectedResult, $value): void
@@ -25,7 +26,7 @@ class FormulaTextTest extends AllSetupTeardown
         self::assertSame($expectedResult, $result);
     }
 
-    public function providerFormulaText(): array
+    public static function providerFormulaText(): array
     {
         return require 'tests/data/Calculation/LookupRef/FORMULATEXT.php';
     }

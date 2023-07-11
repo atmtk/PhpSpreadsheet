@@ -3,17 +3,9 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Financial;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
-use PHPUnit\Framework\TestCase;
 
-class DollarDeTest extends TestCase
+class DollarDeTest extends AllSetupTeardown
 {
-    protected function setUp(): void
-    {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
-    }
-
     /**
      * @dataProvider providerDOLLARDE
      *
@@ -21,11 +13,10 @@ class DollarDeTest extends TestCase
      */
     public function testDOLLARDE($expectedResult, ...$args): void
     {
-        $result = Financial::DOLLARDE(...$args);
-        self::assertEqualsWithDelta($expectedResult, $result, 1E-8);
+        $this->runTestCase('DOLLARDE', $expectedResult, $args);
     }
 
-    public function providerDOLLARDE(): array
+    public static function providerDOLLARDE(): array
     {
         return require 'tests/data/Calculation/Financial/DOLLARDE.php';
     }
@@ -42,7 +33,7 @@ class DollarDeTest extends TestCase
         self::assertEqualsWithDelta($expectedResult, $result, 1.0e-12);
     }
 
-    public function providerDollarDeArray(): array
+    public static function providerDollarDeArray(): array
     {
         return [
             'first argument row vector' => [

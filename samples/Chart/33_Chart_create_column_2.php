@@ -3,10 +3,9 @@
 use PhpOffice\PhpSpreadsheet\Chart\Chart;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeries;
 use PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues;
-use PhpOffice\PhpSpreadsheet\Chart\Legend;
+use PhpOffice\PhpSpreadsheet\Chart\Legend as ChartLegend;
 use PhpOffice\PhpSpreadsheet\Chart\PlotArea;
 use PhpOffice\PhpSpreadsheet\Chart\Title;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 require __DIR__ . '/../Header.php';
@@ -82,7 +81,7 @@ $series->setPlotDirection(DataSeries::DIRECTION_COL);
 // Set the series in the plot area
 $plotArea = new PlotArea(null, [$series]);
 // Set the chart legend
-$legend = new Legend(Legend::POSITION_BOTTOM, null, false);
+$legend = new ChartLegend(ChartLegend::POSITION_BOTTOM, null, false);
 
 $title = new Title('Test Grouped Column Chart');
 $xAxisLabel = new Title('Financial Period');
@@ -107,10 +106,7 @@ $chart->setBottomRightPosition('P20');
 // Add the chart to the worksheet
 $worksheet->addChart($chart);
 
+$helper->renderChart($chart, __FILE__);
+
 // Save Excel 2007 file
-$filename = $helper->getFilename(__FILE__);
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->setIncludeCharts(true);
-$callStartTime = microtime(true);
-$writer->save($filename);
-$helper->logWrite($writer, $filename, $callStartTime);
+$helper->write($spreadsheet, __FILE__, ['Xlsx'], true);

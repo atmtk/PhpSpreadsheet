@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheetTests\Reader\Security;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use PhpOffice\PhpSpreadsheet\Reader\Security\XmlScanner;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
@@ -24,7 +25,7 @@ class XmlScannerTest extends TestCase
      * @param mixed $filename
      * @param mixed $expectedResult
      */
-    public function testValidXML($filename, $expectedResult, $libxmlDisableEntityLoader): void
+    public function testValidXML($filename, $expectedResult, bool $libxmlDisableEntityLoader): void
     {
         // php 8.+ deprecated libxml_disable_entity_loader() - It's on by default
         if (\PHP_VERSION_ID < 80000) {
@@ -41,10 +42,12 @@ class XmlScannerTest extends TestCase
         }
     }
 
-    public function providerValidXML(): array
+    public static function providerValidXML(): array
     {
         $tests = [];
-        foreach (glob('tests/data/Reader/Xml/XEETestValid*.xml') as $file) {
+        $glob = glob('tests/data/Reader/Xml/XEETestValid*.xml');
+        self::assertNotFalse($glob);
+        foreach ($glob as $file) {
             $filename = realpath($file);
             $expectedResult = file_get_contents($file);
             $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, $expectedResult, true];
@@ -59,7 +62,7 @@ class XmlScannerTest extends TestCase
      *
      * @param mixed $filename
      */
-    public function testInvalidXML($filename, $libxmlDisableEntityLoader): void
+    public function testInvalidXML($filename, bool $libxmlDisableEntityLoader): void
     {
         $this->expectException(\PhpOffice\PhpSpreadsheet\Reader\Exception::class);
 
@@ -78,10 +81,12 @@ class XmlScannerTest extends TestCase
         }
     }
 
-    public function providerInvalidXML(): array
+    public static function providerInvalidXML(): array
     {
         $tests = [];
-        foreach (glob('tests/data/Reader/Xml/XEETestInvalidUTF*.xml') as $file) {
+        $glob = glob('tests/data/Reader/Xml/XEETestInvalidUTF*.xml');
+        self::assertNotFalse($glob);
+        foreach ($glob as $file) {
             $filename = realpath($file);
             $tests[basename($file) . '_libxml_entity_loader_disabled'] = [$filename, true];
             $tests[basename($file) . '_libxml_entity_loader_enabled'] = [$filename, false];
@@ -109,6 +114,14 @@ class XmlScannerTest extends TestCase
         self::assertNull($scanner);
     }
 
+    public function testGetSecurityScannerForNonXmlBasedReader2(): void
+    {
+        $this->expectException(ReaderException::class);
+        $this->expectExceptionMessage('Security scanner is unexpectedly null');
+        $fileReader = new Xls();
+        $fileReader->getSecurityScannerOrThrow();
+    }
+
     /**
      * @dataProvider providerValidXMLForCallback
      *
@@ -118,17 +131,19 @@ class XmlScannerTest extends TestCase
     public function testSecurityScanWithCallback($filename, $expectedResult): void
     {
         $fileReader = new Xlsx();
-        $scanner = $fileReader->getSecurityScanner();
+        $scanner = $fileReader->getSecurityScannerOrThrow();
         $scanner->setAdditionalCallback('strrev');
         $xml = $scanner->scanFile($filename);
 
         self::assertEquals(strrev($expectedResult), $xml);
     }
 
-    public function providerValidXMLForCallback(): array
+    public static function providerValidXMLForCallback(): array
     {
         $tests = [];
-        foreach (glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml') as $file) {
+        $glob = glob('tests/data/Reader/Xml/SecurityScannerWithCallback*.xml');
+        self::assertNotFalse($glob);
+        foreach ($glob as $file) {
             $tests[basename($file)] = [realpath($file), file_get_contents($file)];
         }
 

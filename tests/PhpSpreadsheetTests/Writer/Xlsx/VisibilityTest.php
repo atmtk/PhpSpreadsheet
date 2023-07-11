@@ -27,7 +27,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderRowVisibility(): array
+    public static function dataProviderRowVisibility(): array
     {
         return [
             [
@@ -55,7 +55,7 @@ class VisibilityTest extends AbstractFunctional
         }
     }
 
-    public function dataProviderColumnVisibility(): array
+    public static function dataProviderColumnVisibility(): array
     {
         return [
             [
@@ -79,12 +79,12 @@ class VisibilityTest extends AbstractFunctional
 
         $reloadedSpreadsheet = $this->writeAndReload($spreadsheet, 'Xlsx');
         foreach ($visibleSheets as $sheetName => $visibility) {
-            $reloadedWorksheet = $reloadedSpreadsheet->getSheetByName($sheetName) ?? new Worksheet();
+            $reloadedWorksheet = $reloadedSpreadsheet->getSheetByNameOrThrow($sheetName);
             self::assertSame($visibility, $reloadedWorksheet->getSheetState());
         }
     }
 
-    public function dataProviderSheetVisibility(): array
+    public static function dataProviderSheetVisibility(): array
     {
         return [
             [

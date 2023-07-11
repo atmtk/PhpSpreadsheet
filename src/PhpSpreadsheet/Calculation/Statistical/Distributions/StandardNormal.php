@@ -103,8 +103,10 @@ class StandardNormal
         if (!is_numeric($value)) {
             return ExcelError::VALUE();
         }
+        /** @var float */
+        $dist = self::distribution($value, true);
 
-        return self::distribution($value, true) - 0.5;
+        return $dist - 0.5;
     }
 
     /**
@@ -139,10 +141,19 @@ class StandardNormal
         }
 
         if ($sigma === null) {
+            /** @var float */
             $sigma = StandardDeviations::STDEV($dataSet);
         }
         $n = count($dataSet);
 
-        return 1 - self::cumulative((Averages::average($dataSet) - $m0) / ($sigma / sqrt($n)));
+        $sub1 = Averages::average($dataSet);
+
+        if (!is_numeric($sub1)) {
+            return $sub1;
+        }
+
+        $temp = self::cumulative(($sub1 - $m0) / ($sigma / sqrt($n)));
+
+        return 1 - (is_numeric($temp) ? $temp : 0);
     }
 }

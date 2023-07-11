@@ -10,14 +10,7 @@ use SimpleXMLElement;
 
 class AutoFilterTest extends TestCase
 {
-    private function getWorksheetInstance()
-    {
-        return $this->getMockBuilder(Worksheet::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
-    private function getXMLInstance($ref)
+    private function getXMLInstance(string $ref): SimpleXMLElement
     {
         return new SimpleXMLElement(
             '<?xml version="1.0" encoding="UTF-8"?>' .
@@ -27,16 +20,7 @@ class AutoFilterTest extends TestCase
         );
     }
 
-    private function getAutoFilterInstance()
-    {
-        $instance = $this->getMockBuilder(WorksheetAutoFilter::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        return $instance;
-    }
-
-    public function loadDataProvider(): array
+    public static function loadDataProvider(): array
     {
         return [
             ['$B3$E8', 0, 'B3E8'],
@@ -53,12 +37,16 @@ class AutoFilterTest extends TestCase
      */
     public function testLoad($ref, $expectedReadAutoFilterCalled, $expectedRef): void
     {
-        $worksheetAutoFilter = $this->getAutoFilterInstance();
+        $worksheetAutoFilter = $this->getMockBuilder(WorksheetAutoFilter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $worksheetAutoFilter->expects(self::exactly($expectedReadAutoFilterCalled ? 1 : 0))
             ->method('setRange')
             ->with($expectedRef);
 
-        $worksheet = $this->getWorksheetInstance();
+        $worksheet = $this->getMockBuilder(Worksheet::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $worksheet->expects(self::exactly($expectedReadAutoFilterCalled ? 1 : 0))
             ->method('getAutoFilter')
             ->willReturn($worksheetAutoFilter);

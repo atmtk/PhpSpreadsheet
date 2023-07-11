@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting;
+namespace PhpOffice\PhpSpreadsheetTests\Style\ConditionalFormatting\Wizard;
 
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
@@ -54,7 +54,7 @@ class DateValueWizardTest extends TestCase
         self::assertEquals($newWizard, $dateWizard, 'fromConditional() Failure');
     }
 
-    public function dateValueWizardProvider(): array
+    public static function dateValueWizardProvider(): array
     {
         return [
             ['today', 'today', 'FLOOR(C3,1)=TODAY()'],

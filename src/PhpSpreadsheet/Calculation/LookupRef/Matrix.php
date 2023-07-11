@@ -11,6 +11,23 @@ class Matrix
     use ArrayEnabled;
 
     /**
+     * Helper function; NOT an implementation of any Excel Function.
+     */
+    public static function isColumnVector(array $values): bool
+    {
+        return count($values, COUNT_RECURSIVE) === (count($values, COUNT_NORMAL) * 2);
+    }
+
+    /**
+     * Helper function; NOT an implementation of any Excel Function.
+     */
+    public static function isRowVector(array $values): bool
+    {
+        return count($values, COUNT_RECURSIVE) > 1 &&
+            (count($values, COUNT_NORMAL) === 1 || count($values, COUNT_RECURSIVE) === count($values, COUNT_NORMAL));
+    }
+
+    /**
      * TRANSPOSE.
      *
      * @param array|mixed $matrixData A matrix of values
@@ -59,13 +76,14 @@ class Matrix
      *         If an array of values is passed as the $rowNum and/or $columnNum arguments, then the returned result
      *            will also be an array with the same dimensions
      */
-    public static function index($matrix, $rowNum = 0, $columnNum = 0)
+    public static function index($matrix, $rowNum = 0, $columnNum = null)
     {
         if (is_array($rowNum) || is_array($columnNum)) {
             return self::evaluateArrayArgumentsSubsetFrom([self::class, __FUNCTION__], 1, $matrix, $rowNum, $columnNum);
         }
 
         $rowNum = $rowNum ?? 0;
+        $originalColumnNum = $columnNum;
         $columnNum = $columnNum ?? 0;
 
         try {
@@ -83,6 +101,9 @@ class Matrix
         $columnKeys = @array_keys($matrix[$rowKeys[0]]);
 
         if ($columnNum > count($columnKeys)) {
+            return ExcelError::REF();
+        }
+        if ($originalColumnNum === null && 1 < count($columnKeys)) {
             return ExcelError::REF();
         }
 
@@ -104,6 +125,7 @@ class Matrix
         return $matrix[$rowNum][$columnNum];
     }
 
+    /** @return mixed */
     private static function extractRowValue(array $matrix, array $rowKeys, int $rowNum)
     {
         if ($rowNum === 0) {

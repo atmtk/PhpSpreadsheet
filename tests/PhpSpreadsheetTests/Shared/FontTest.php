@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class FontTest extends TestCase
 {
+    const FONT_PRECISION = 1.0E-12;
+
     public function testGetAutoSizeMethod(): void
     {
         $expectedResult = Font::AUTOSIZE_METHOD_APPROX;
@@ -49,7 +51,7 @@ class FontTest extends TestCase
         self::assertEquals($expectedResult, $result);
     }
 
-    public function providerFontSizeToPixels(): array
+    public static function providerFontSizeToPixels(): array
     {
         return require 'tests/data/Shared/FontSizeToPixels.php';
     }
@@ -63,10 +65,10 @@ class FontTest extends TestCase
     public function testInchSizeToPixels($expectedResult, $size): void
     {
         $result = Font::inchSizeToPixels($size);
-        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
     }
 
-    public function providerInchSizeToPixels(): array
+    public static function providerInchSizeToPixels(): array
     {
         return require 'tests/data/Shared/InchSizeToPixels.php';
     }
@@ -80,10 +82,10 @@ class FontTest extends TestCase
     public function testCentimeterSizeToPixels($expectedResult, $size): void
     {
         $result = Font::centimeterSizeToPixels($size);
-        self::assertEquals($expectedResult, $result);
+        self::assertEqualsWithDelta($expectedResult, $result, self::FONT_PRECISION);
     }
 
-    public function providerCentimeterSizeToPixels(): array
+    public static function providerCentimeterSizeToPixels(): array
     {
         return require 'tests/data/Shared/CentimeterSizeToPixels.php';
     }
@@ -98,5 +100,38 @@ class FontTest extends TestCase
         self::assertEquals(7, $width);
         $width = Font::getTextWidthPixelsApprox('n', $font, -165);
         self::assertEquals(4, $width);
+    }
+
+    /**
+     * @dataProvider providerCalculateApproximateColumnWidth
+     */
+    public function testCalculateApproximateColumnWidth(
+        float $expectedWidth,
+        StyleFont $font,
+        string $text,
+        int $rotation,
+        StyleFont $defaultFont,
+        bool $filter,
+        int $indent
+    ): void {
+        $columnWidth = Font::calculateColumnWidth($font, $text, $rotation, $defaultFont, $filter, $indent);
+        self::assertEquals($expectedWidth, $columnWidth);
+    }
+
+    public static function providerCalculateApproximateColumnWidth(): array
+    {
+        return [
+            [13.9966, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 0],
+            [16.2817, new StyleFont(), 'Hello World', 0, new StyleFont(), true, 0],
+            [16.2817, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 1],
+            [18.7097, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 2],
+            [20.9949, new StyleFont(), 'Hello World', 0, new StyleFont(), false, 3],
+            [6.9983, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), false, 0],
+            [9.2834, new StyleFont(), "Hello\nWorld", 0, new StyleFont(), true, 0],
+            [17.5671, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 0],
+            [19.8523, new StyleFont(), 'PhpSpreadsheet', 0, new StyleFont(), false, 1],
+            'CJK characters width must be >= 43.00' => [55.2722, new StyleFont(), '如果某一列是CJK 其中的一种，这样的设置方式无效', 0, new StyleFont(), false, 0],
+            'non-CJK characters width must be >= 24.73' => [31.7065, new StyleFont(), 'abcdefghijklmnopqrstuvwxyz', 0, new StyleFont(), false, 0],
+        ];
     }
 }

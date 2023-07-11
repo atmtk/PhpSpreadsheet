@@ -21,13 +21,14 @@ class HtmlTest extends TestCase
         self::assertSame($expected, $actual->getPlainText());
     }
 
-    public function providerUtf8EncodingSupport(): array
+    public static function providerUtf8EncodingSupport(): array
     {
         return [
             ['foo', 'foo'],
             ['können', 'können'],
             ['русский', 'русский'],
             ["foo\nbar", '<p>foo</p><p>bar</p>'],
+            'issue2810' => ['0', '0'],
         ];
     }
 }

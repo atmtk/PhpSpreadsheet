@@ -3,35 +3,97 @@
 namespace PhpOffice\PhpSpreadsheetTests\Calculation\Functions\Engineering;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Calculation;
-use PhpOffice\PhpSpreadsheet\Calculation\Engineering;
-use PhpOffice\PhpSpreadsheet\Calculation\Functions;
+use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC;
+use PhpOffice\PhpSpreadsheet\Calculation\Exception as CalculationException;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheetTests\Calculation\Functions\FormulaArguments;
 use PHPUnit\Framework\TestCase;
 
 class ErfCTest extends TestCase
 {
-    const ERF_PRECISION = 1E-12;
+    const ERF_PRECISION = 1E-14;
 
-    protected function setUp(): void
+    /**
+     * @dataProvider providerERFC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testDirectCallToERFC($expectedResult, ...$args): void
     {
-        Functions::setCompatibilityMode(Functions::COMPATIBILITY_EXCEL);
+        /** @scrutinizer ignore-call */
+        $result = ErfC::ERFC(...$args);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
     /**
      * @dataProvider providerERFC
      *
-     * @param mixed $lower
      * @param mixed $expectedResult
      */
-    public function testERFC($expectedResult, $lower): void
+    public function testERFCAsFormula($expectedResult, ...$args): void
     {
-        $result = Engineering::ERFC($lower);
-        self::assertEquals($expectedResult, $result);
+        $arguments = new FormulaArguments(...$args);
+
+        $calculation = Calculation::getInstance();
+        $formula = "=ERFC({$arguments})";
+
+        $result = $calculation->_calculateFormulaValue($formula);
         self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerERFC(): array
+    /**
+     * @dataProvider providerERFC
+     *
+     * @param mixed $expectedResult
+     */
+    public function testERFCInWorksheet($expectedResult, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=ERFC({$argumentCells})";
+
+        $result = $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerERFC(): array
     {
         return require 'tests/data/Calculation/Engineering/ERFC.php';
+    }
+
+    /**
+     * @dataProvider providerUnhappyERFC
+     */
+    public function testERFCUnhappyPath(string $expectedException, ...$args): void
+    {
+        $arguments = new FormulaArguments(...$args);
+
+        $spreadsheet = new Spreadsheet();
+        $worksheet = $spreadsheet->getActiveSheet();
+        $argumentCells = $arguments->populateWorksheet($worksheet);
+        $formula = "=ERFC({$argumentCells})";
+
+        $this->expectException(CalculationException::class);
+        $this->expectExceptionMessage($expectedException);
+        $worksheet->setCellValue('A1', $formula)
+            ->getCell('A1')
+            ->getCalculatedValue();
+
+        $spreadsheet->disconnectWorksheets();
+    }
+
+    public static function providerUnhappyERFC(): array
+    {
+        return [
+            ['Formula Error: Wrong number of arguments for ERFC() function'],
+        ];
     }
 
     /**
@@ -43,10 +105,10 @@ class ErfCTest extends TestCase
 
         $formula = "=ERFC({$lower})";
         $result = $calculation->_calculateFormulaValue($formula);
-        self::assertEqualsWithDelta($expectedResult, $result, 1.0e-14);
+        self::assertEqualsWithDelta($expectedResult, $result, self::ERF_PRECISION);
     }
 
-    public function providerErfCArray(): array
+    public static function providerErfCArray(): array
     {
         return [
             'row vector' => [

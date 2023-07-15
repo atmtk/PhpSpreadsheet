@@ -68,7 +68,7 @@ class Style
                         break;
                     case 'Protection':
                         $locked = $hidden = null;
-                        $styleAttributesP = $styleData->attributes($namespaces['x']);
+                        $styleAttributesP = isset($namespaces['x']) ? $styleData->attributes($namespaces['x']): null;
                         if (isset($styleAttributes['Protected'])) {
                             $locked = ((bool) (string) $styleAttributes['Protected']) ? Protection::PROTECTION_PROTECTED : Protection::PROTECTION_UNPROTECTED;
                         }

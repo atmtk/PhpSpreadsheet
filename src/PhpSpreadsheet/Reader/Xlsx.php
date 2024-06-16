@@ -83,7 +83,7 @@ class Xlsx extends BaseReader
      */
     public function canRead(string $filename): bool
     {
-        if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
+        if (!File::testFileNoThrow($filename)) {
             Logger::error('Xlsx::canRead() - file does not exist');
             return false;
         }

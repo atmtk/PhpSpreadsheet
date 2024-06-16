@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Atmtk\UtilityBundle\Util\Logger;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -83,6 +84,7 @@ class Xlsx extends BaseReader
     public function canRead(string $filename): bool
     {
         if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
+            Logger::error('Xlsx::canRead() - file does not exist');
             return false;
         }
 
@@ -90,8 +92,11 @@ class Xlsx extends BaseReader
         $this->zip = $zip = new ZipArchive();
 
         if ($zip->open($filename) === true) {
+
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
+
+            Logger::error('Xlsx::canRead() - zip open'.$result);
 
             $zip->close();
         }

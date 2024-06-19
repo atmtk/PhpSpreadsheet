@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Shared;
 
+use Atmtk\UtilityBundle\Util\Logger;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
 use ZipArchive;
@@ -51,13 +52,16 @@ class File
      */
     public static function fileExists(string $filename): bool
     {
+        Logger::error('Original file exists: '. file_exists($filename));
         // Sick construction, but it seems that
         // file_exists returns strange values when
         // doing the original file_exists on ZIP archives...
         if (strtolower(substr($filename, 0, 6)) == 'zip://') {
             // Open ZIP file and verify if the file exists
             $zipFile = substr($filename, 6, strrpos($filename, '#') - 6);
+            Logger::error('ZipFile: '. $zipFile);
             $archiveFile = substr($filename, strrpos($filename, '#') + 1);
+            Logger::error('ArchiveFile: '. $archiveFile);
 
             if (self::validateZipFirst4($zipFile)) {
                 $zip = new ZipArchive();
@@ -171,9 +175,11 @@ class File
     public static function testFileNoThrow(string $filename, ?string $zipMember = null): bool
     {
         if (!is_file($filename)) {
+            Logger::error('is_file: '. $filename);
             return false;
         }
         if (!is_readable($filename)) {
+            Logger::error('is_readable: '. $filename);
             return false;
         }
         if ($zipMember === null) {
@@ -185,6 +191,7 @@ class File
         }
 
         $zipfile = "zip://$filename#$zipMember";
+        Logger::error('zip_file: '. $zipfile);
         if (self::fileExists($zipfile)) {
             return true;
         }

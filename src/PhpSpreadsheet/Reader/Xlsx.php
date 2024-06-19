@@ -141,6 +141,10 @@ class Xlsx extends BaseReader
     private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
+        Logger::error(
+            'LoadZip()',
+            ['filename' => $filename, 'ns' => $ns,'replaceUn'=>$replaceUnclosedBr, 'contents' => $contents]
+        );
         if ($replaceUnclosedBr) {
             $contents = str_replace('<br>', '<br/>', $contents);
         }
@@ -151,6 +155,10 @@ class Xlsx extends BaseReader
             $ns
         );
 
+        Logger::error(
+            'LoadZip()',
+            ['rels' => $rels]
+        );
         return self::testSimpleXml($rels);
     }
 
@@ -402,7 +410,7 @@ class Xlsx extends BaseReader
      */
     private function getFromZipArchive(ZipArchive $archive, $fileName = '')
     {
-       if(strpos($fileName, 's3://')!== false){
+       if(strpos($fileName, 's3://') === false){
            // Root-relative paths
            if (strpos($fileName, '//') !== false) {
                $fileName = substr($fileName, strpos($fileName, '//') + 1);
@@ -2162,14 +2170,17 @@ class Xlsx extends BaseReader
 
         // check if it is an OOXML archive
         $rels = $this->loadZip(self::INITIAL_FILE);
+        Logger::error('Getting workbook basename', ['rels' => $rels]);
         foreach ($rels->children(Namespaces::RELATIONSHIPS)->Relationship as $rel) {
             $rel = self::getAttributes($rel);
             $type = (string) $rel['Type'];
+            Logger::error('Getting workbook basename', ['rel' => $rel, 'type' => $type]);
             switch ($type) {
                 case Namespaces::OFFICE_DOCUMENT:
                 case Namespaces::PURL_OFFICE_DOCUMENT:
                     $basename = basename((string) $rel['Target']);
                     $xmlNamespaceBase = dirname($type);
+                Logger::error('Getting workbook basename', ['basename' => $basename, 'type' => $type]);
                     if (preg_match('/workbook.*\.xml/', $basename)) {
                         $workbookBasename = $basename;
                     }
@@ -2177,6 +2188,7 @@ class Xlsx extends BaseReader
                     break;
             }
         }
+
 
         return [$workbookBasename, $xmlNamespaceBase];
     }

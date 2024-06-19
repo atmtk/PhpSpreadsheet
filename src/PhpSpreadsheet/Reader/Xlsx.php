@@ -411,6 +411,8 @@ class Xlsx extends BaseReader
         $fileName = (string) preg_replace('/^\.\//', '', $fileName);
         $fileName = File::realpath($fileName);
 
+        Logger::error('getFromZipArchive: '. $fileName);
+
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
 

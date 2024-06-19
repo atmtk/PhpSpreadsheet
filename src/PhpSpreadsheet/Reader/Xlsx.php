@@ -91,7 +91,12 @@ class Xlsx extends BaseReader
         $result = false;
         $this->zip = $zip = new ZipArchive();
 
-        if ($zip->open($filename) === true) {
+        Logger::error(
+            'Xlsx::canRead() - file does not exist',
+            ['filename' => $filename, 'zip' => $zip->open($filename)]
+        );
+
+        if ($zip->open($filename, ZipArchive::CREATE) === true) {
 
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);

@@ -155,7 +155,7 @@ abstract class IOFactory
         if (($guessedReader !== null) && array_key_exists($guessedReader, $testReaders)) {
             $reader = self::createReader($guessedReader);
             Logger::error('IOFactory::createReaderForFile: can read: ',
-                ['full' => $filename, 'extension' => $guessedReader]
+                ['full' => $filename, 'extension' => $guessedReader,'reader' => $reader]
             );
             // Let's see if we are lucky
             if ($reader->canRead($filename)) {
@@ -169,9 +169,6 @@ abstract class IOFactory
             //    Ignore our original guess, we know that won't work
             if ($readerType !== $guessedReader) {
                 $reader = self::createReader($readerType);
-                Logger::error('IOFactory::createReaderForFile: can read: ',
-                    ['full' => $readerType, 'extension' => $guessedReader]
-                );
                 if ($reader->canRead($filename)) {
                     return $reader;
                 }

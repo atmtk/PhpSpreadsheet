@@ -91,7 +91,7 @@ class Xlsx extends BaseReader
         $result = false;
         $this->zip = $zip = new ZipArchive();
 
-        if ($zip->open($filename,ZipArchive::CREATE|ZipArchive::OVERWRITE ) === true) {
+        if ($zip->open($filename) === true) {
             $zip->addFile($filename);
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);

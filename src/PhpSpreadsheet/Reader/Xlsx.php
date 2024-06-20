@@ -91,7 +91,7 @@ class Xlsx extends BaseReader
         $this->zip = $zip = new ZipArchive();
 
         $fileContents = file_get_contents($filename);
-        $filename = pathinfo($filename);
+        $filename = basename($filename);
         $hash = sha1($fileContents);
         $tmpdir = sys_get_temp_dir() . '/' . $hash;
         @mkdir($tmpdir, 0777, true);

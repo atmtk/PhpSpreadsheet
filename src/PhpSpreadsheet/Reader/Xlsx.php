@@ -84,7 +84,6 @@ class Xlsx extends BaseReader
     public function canRead(string $filename): bool
     {
         if (!File::testFileNoThrow($filename)) {
-            Logger::error('Xlsx::canRead() - file does not exist');
             return false;
         }
 
@@ -149,10 +148,6 @@ class Xlsx extends BaseReader
             $ns
         );
 
-        Logger::error(
-            'LoadZip()',
-            ['rels' => $rels]
-        );
         return self::testSimpleXml($rels);
     }
 
@@ -415,7 +410,6 @@ class Xlsx extends BaseReader
            $fileName = File::realpath($fileName);
        }
 
-        Logger::error('getFromZipArchive: '. $fileName);
 
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
@@ -2164,17 +2158,14 @@ class Xlsx extends BaseReader
 
         // check if it is an OOXML archive
         $rels = $this->loadZip(self::INITIAL_FILE);
-        Logger::error('Getting workbook basename', ['rels' => $rels]);
         foreach ($rels->children(Namespaces::RELATIONSHIPS)->Relationship as $rel) {
             $rel = self::getAttributes($rel);
             $type = (string) $rel['Type'];
-            Logger::error('Getting workbook basename', ['rel' => $rel, 'type' => $type]);
             switch ($type) {
                 case Namespaces::OFFICE_DOCUMENT:
                 case Namespaces::PURL_OFFICE_DOCUMENT:
                     $basename = basename((string) $rel['Target']);
                     $xmlNamespaceBase = dirname($type);
-                Logger::error('Getting workbook basename', ['basename' => $basename, 'type' => $type]);
                     if (preg_match('/workbook.*\.xml/', $basename)) {
                         $workbookBasename = $basename;
                     }

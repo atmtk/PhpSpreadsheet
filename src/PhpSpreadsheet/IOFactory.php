@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet;
 
-use Atmtk\UtilityBundle\Util\Logger;
 use PhpOffice\PhpSpreadsheet\Reader\IReader;
 use PhpOffice\PhpSpreadsheet\Shared\File;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
@@ -149,14 +148,8 @@ abstract class IOFactory
 
         // First, lucky guess by inspecting file extension
         $guessedReader = self::getReaderTypeFromExtension($filename);
-        Logger::error('IOFactory::createReaderForFile: pathinfo: ',
-            ['full' => $filename, 'extension' => $guessedReader]
-        );
         if (($guessedReader !== null) && array_key_exists($guessedReader, $testReaders)) {
             $reader = self::createReader($guessedReader);
-            Logger::error('IOFactory::createReaderForFile: can read: ',
-                ['full' => $filename, 'extension' => $guessedReader,'reader' => $reader]
-            );
             // Let's see if we are lucky
             if ($reader->canRead($filename)) {
                 return $reader;
@@ -184,9 +177,6 @@ abstract class IOFactory
     private static function getReaderTypeFromExtension(string $filename): ?string
     {
         $pathinfo = pathinfo($filename);
-        Logger::error('IOFactory::getReaderTypeFromExtension: pathinfo: ',
-            ['full' => $filename, 'extension' => $pathinfo['extension']]
-        );
         if (!isset($pathinfo['extension'])) {
             return null;
         }

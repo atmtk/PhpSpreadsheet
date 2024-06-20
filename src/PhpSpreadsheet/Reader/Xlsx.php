@@ -99,8 +99,6 @@ class Xlsx extends BaseReader
         file_put_contents($filename, $fileContents);
 
         if ($zip->open($filename,  ZipArchive::CREATE) === true) {
-            $contents = file_get_contents($filename);
-            $zip->addFromString($filename,$contents);
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
             Logger::error('Xlsx::canRead() - zip open', ['workbook' => $workbookBasename, 'zip' => $result]);
@@ -454,6 +452,13 @@ class Xlsx extends BaseReader
         $unparsedLoadedData = [];
 
         $this->zip = $zip = new ZipArchive();
+        $fileContents = file_get_contents($filename);
+        $filename = basename($filename);
+        $hash = sha1($fileContents);
+        $tmpdir = sys_get_temp_dir() . '/' . $hash;
+        @mkdir($tmpdir, 0777, true);
+        $filename = $tmpdir . '/' . $filename;
+        file_put_contents($filename, $fileContents);
         $zip->open($filename);
 
         //    Read the theme first, because we need the colour scheme when reading the styles

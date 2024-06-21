@@ -145,7 +145,10 @@ class Xlsx extends BaseReader
     private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
-
+        Logger::error(
+            'LoadZip()',
+            ['filename' => $filename, 'ns' => $ns,'replaceUn'=>$replaceUnclosedBr, 'contents' => $contents]
+        );
         if ($replaceUnclosedBr) {
             $contents = str_replace('<br>', '<br/>', $contents);
         }
@@ -463,7 +466,7 @@ class Xlsx extends BaseReader
 
         fclose($source);
         fclose($target);
-        $zip->open($targetFile);
+        $zip->open($targetFile, ZipArchive::CREATE);
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();

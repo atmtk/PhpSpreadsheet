@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use Atmtk\UtilityBundle\Util\Logger;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -104,7 +103,6 @@ class Xlsx extends BaseReader
         if ($zip->open($targetFile,  ZipArchive::CREATE) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
-            Logger::error('Xlsx::canRead() - zip open', ['workbook' => $workbookBasename, 'zip' => $result]);
 
             $zip->close();
         }
@@ -145,10 +143,7 @@ class Xlsx extends BaseReader
     private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
-        Logger::error(
-            'LoadZip()',
-            ['filename' => $filename, 'ns' => $ns,'replaceUn'=>$replaceUnclosedBr, 'contents' => $contents]
-        );
+
         if ($replaceUnclosedBr) {
             $contents = str_replace('<br>', '<br/>', $contents);
         }

@@ -445,17 +445,6 @@ class Xlsx extends BaseReader
      */
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        File::assertFile($filename, self::INITIAL_FILE);
-
-        // Initialisations
-        $excel = new Spreadsheet();
-        $excel->removeSheetByIndex(0);
-        $addingFirstCellStyleXf = true;
-        $addingFirstCellXf = true;
-
-        $unparsedLoadedData = [];
-
-        $this->zip = $zip = new ZipArchive();
         $source = fopen($filename,'rb');
         $baseName = basename($filename);
         $hash = sha1((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
@@ -467,6 +456,18 @@ class Xlsx extends BaseReader
 
         fclose($source);
         fclose($target);
+        File::assertFile($targetFile, self::INITIAL_FILE);
+
+        // Initialisations
+        $excel = new Spreadsheet();
+        $excel->removeSheetByIndex(0);
+        $addingFirstCellStyleXf = true;
+        $addingFirstCellXf = true;
+
+        $unparsedLoadedData = [];
+
+        $this->zip = $zip = new ZipArchive();
+
         $zip->open($targetFile, ZipArchive::CREATE);
 
         //    Read the theme first, because we need the colour scheme when reading the styles

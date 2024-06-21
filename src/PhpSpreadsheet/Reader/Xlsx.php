@@ -472,6 +472,7 @@ class Xlsx extends BaseReader
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
         $drawingNS = self::REL_TO_DRAWING[$xmlNamespaceBase] ?? Namespaces::DRAWINGML;
         $chartNS = self::REL_TO_CHART[$xmlNamespaceBase] ?? Namespaces::CHART;
+        Logger::error('loadSpreadsheetFromFile: '. $xmlNamespaceBase.$workbookBasename);
         $wbRels = $this->loadZip("xl/_rels/{$workbookBasename}.rels", Namespaces::RELATIONSHIPS);
         $theme = null;
         $this->styleReader = new Styles();

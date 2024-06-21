@@ -89,13 +89,13 @@ class Xlsx extends BaseReader
 
         $result = false;
         $this->zip = $zip = new ZipArchive();
-        $source = fopen($filename,'r');
+        $source = fopen($filename,'rb');
         $baseName = basename($filename);
         $hash = sha1((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
         $tmpdir = sys_get_temp_dir() . '/' . $hash;
         @mkdir($tmpdir, 0777, true);
         $targetFile = $tmpdir . '/' . $baseName;
-        $target = fopen($targetFile, 'w');
+        $target = fopen($targetFile, 'wb');
         stream_copy_to_stream($source, $target);
 
         fclose($source);
@@ -455,13 +455,13 @@ class Xlsx extends BaseReader
         $unparsedLoadedData = [];
 
         $this->zip = $zip = new ZipArchive();
-        $source = fopen($filename,'r');
+        $source = fopen($filename,'rb');
         $baseName = basename($filename);
         $hash = sha1((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
         $tmpdir = sys_get_temp_dir() . '/' . $hash;
         @mkdir($tmpdir, 0777, true);
         $targetFile = $tmpdir . '/' . $baseName;
-        $target = fopen($targetFile, 'w');
+        $target = fopen($targetFile, 'wb');
         stream_copy_to_stream($source, $target);
 
         fclose($source);

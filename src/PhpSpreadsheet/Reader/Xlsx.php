@@ -2,7 +2,6 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
-use Atmtk\UtilityBundle\Util\Logger;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -101,12 +100,9 @@ class Xlsx extends BaseReader
         fclose($source);
         fclose($target);
 
-        Logger::error('Xlsx::canRead()', ['filename' => $filename, 'target' => $targetFile]);
-
         if ($zip->open($targetFile,  ZipArchive::CREATE) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
-            Logger::error('Xlsx::canRead() - zip open', ['workbook' => $workbookBasename, 'zip' => $result]);
 
             $zip->close();
         }
@@ -146,10 +142,6 @@ class Xlsx extends BaseReader
     private function loadZip(string $filename, string $ns = '', bool $replaceUnclosedBr = false): SimpleXMLElement
     {
         $contents = $this->getFromZipArchive($this->zip, $filename);
-        Logger::error(
-            'LoadZip()',
-            ['filename' => $filename, 'ns' => $ns,'replaceUn'=>$replaceUnclosedBr, 'contents' => $contents]
-        );
         if ($replaceUnclosedBr) {
             $contents = str_replace('<br>', '<br/>', $contents);
         }
@@ -420,7 +412,6 @@ class Xlsx extends BaseReader
         $fileName = (string) preg_replace('/^\.\//', '', $fileName);
         $fileName = File::realpath($fileName);
 
-        Logger::error('getFromZipArchive: '. $fileName);
 
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
@@ -474,7 +465,6 @@ class Xlsx extends BaseReader
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
         $drawingNS = self::REL_TO_DRAWING[$xmlNamespaceBase] ?? Namespaces::DRAWINGML;
         $chartNS = self::REL_TO_CHART[$xmlNamespaceBase] ?? Namespaces::CHART;
-        Logger::error('loadSpreadsheetFromFile: '. $xmlNamespaceBase.$workbookBasename);
         $wbRels = $this->loadZip("xl/_rels/{$workbookBasename}.rels", Namespaces::RELATIONSHIPS);
         $theme = null;
         $this->styleReader = new Styles();

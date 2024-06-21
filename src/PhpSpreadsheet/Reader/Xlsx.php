@@ -106,7 +106,7 @@ class Xlsx extends BaseReader
 
             $zip->close();
         }
-
+        unlink($targetFile);
         return $result;
     }
 

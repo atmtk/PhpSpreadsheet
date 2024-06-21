@@ -101,6 +101,8 @@ class Xlsx extends BaseReader
         fclose($source);
         fclose($target);
 
+        Logger::error('Xlsx::canRead()', ['filename' => $filename, 'target' => $targetFile]);
+
         if ($zip->open($targetFile,  ZipArchive::CREATE) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
@@ -109,7 +111,6 @@ class Xlsx extends BaseReader
             $zip->close();
         }
 
-        unlink($targetFile);
         return $result;
     }
 

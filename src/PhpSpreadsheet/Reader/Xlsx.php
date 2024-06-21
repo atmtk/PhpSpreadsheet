@@ -2,6 +2,7 @@
 
 namespace PhpOffice\PhpSpreadsheet\Reader;
 
+use Atmtk\UtilityBundle\Util\Logger;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Cell\DataType;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
@@ -103,6 +104,7 @@ class Xlsx extends BaseReader
         if ($zip->open($targetFile,  ZipArchive::CREATE) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
+            Logger::error('Xlsx::canRead() - zip open', ['workbook' => $workbookBasename, 'zip' => $result]);
 
             $zip->close();
         }
@@ -414,7 +416,7 @@ class Xlsx extends BaseReader
         $fileName = (string) preg_replace('/^\.\//', '', $fileName);
         $fileName = File::realpath($fileName);
 
-
+        Logger::error('getFromZipArchive: '. $fileName);
 
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file

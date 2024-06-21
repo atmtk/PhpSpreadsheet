@@ -82,20 +82,31 @@ class Xlsx extends BaseReader
      */
     public function canRead(string $filename): bool
     {
-        if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
+        if (!File::testFileNoThrow($filename)) {
             return false;
         }
 
         $result = false;
         $this->zip = $zip = new ZipArchive();
+        $source = fopen($filename,'rb');
+        $baseName = basename($filename);
+        $hash = sha1((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
+        $tmpdir = sys_get_temp_dir() . '/' . $hash;
+        @mkdir($tmpdir, 0777, true);
+        $targetFile = $tmpdir . '/' . $baseName;
+        $target = fopen($targetFile, 'wb');
+        stream_copy_to_stream($source, $target);
 
-        if ($zip->open($filename) === true) {
+        fclose($source);
+        fclose($target);
+
+        if ($zip->open($targetFile,  ZipArchive::CREATE) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
 
             $zip->close();
         }
-
+        unlink($targetFile);
         return $result;
     }
 
@@ -401,6 +412,7 @@ class Xlsx extends BaseReader
         $fileName = (string) preg_replace('/^\.\//', '', $fileName);
         $fileName = File::realpath($fileName);
 
+
         // Sadly, some 3rd party xlsx generators don't use consistent case for filenaming
         //    so we need to load case-insensitively from the zip file
 
@@ -424,7 +436,18 @@ class Xlsx extends BaseReader
      */
     protected function loadSpreadsheetFromFile(string $filename): Spreadsheet
     {
-        File::assertFile($filename, self::INITIAL_FILE);
+        $source = fopen($filename,'rb');
+        $baseName = basename($filename);
+        $hash = sha1((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
+        $tmpdir = sys_get_temp_dir() . '/' . $hash;
+        @mkdir($tmpdir, 0777, true);
+        $targetFile = $tmpdir . '/' . $baseName;
+        $target = fopen($targetFile, 'wb');
+        stream_copy_to_stream($source, $target);
+
+        fclose($source);
+        fclose($target);
+        File::assertFile($targetFile, self::INITIAL_FILE);
 
         // Initialisations
         $excel = new Spreadsheet();
@@ -435,7 +458,8 @@ class Xlsx extends BaseReader
         $unparsedLoadedData = [];
 
         $this->zip = $zip = new ZipArchive();
-        $zip->open($filename);
+
+        $zip->open($targetFile, ZipArchive::CREATE);
 
         //    Read the theme first, because we need the colour scheme when reading the styles
         [$workbookBasename, $xmlNamespaceBase] = $this->getWorkbookBaseName();
@@ -544,7 +568,7 @@ class Xlsx extends BaseReader
                     $propertyReader->readCustomProperties($this->getFromZipArchive($zip, $relTarget));
 
                     break;
-                    //Ribbon
+                //Ribbon
                 case Namespaces::EXTENSIBILITY:
                     $customUI = $relTarget;
                     if ($customUI) {
@@ -575,7 +599,7 @@ class Xlsx extends BaseReader
                                 }
 
                                 break;
-                                // a vbaProject ? (: some macros)
+                            // a vbaProject ? (: some macros)
                             case Namespaces::VBA:
                                 $macros = $ele['Target'];
 
@@ -1813,7 +1837,7 @@ class Xlsx extends BaseReader
 
                         break;
 
-                        // unparsed
+                    // unparsed
                     case 'application/vnd.ms-excel.controlproperties+xml':
                         $unparsedLoadedData['override_content_types'][(string) $contentType['PartName']] = (string) $contentType['ContentType'];
 
@@ -1825,6 +1849,8 @@ class Xlsx extends BaseReader
         $excel->setUnparsedLoadedData($unparsedLoadedData);
 
         $zip->close();
+
+        unlink($targetFile);
 
         return $excel;
     }
@@ -2163,6 +2189,7 @@ class Xlsx extends BaseReader
                     break;
             }
         }
+
 
         return [$workbookBasename, $xmlNamespaceBase];
     }

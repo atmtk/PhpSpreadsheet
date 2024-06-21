@@ -150,7 +150,6 @@ abstract class IOFactory
         $guessedReader = self::getReaderTypeFromExtension($filename);
         if (($guessedReader !== null) && array_key_exists($guessedReader, $testReaders)) {
             $reader = self::createReader($guessedReader);
-
             // Let's see if we are lucky
             if ($reader->canRead($filename)) {
                 return $reader;

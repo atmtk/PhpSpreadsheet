@@ -82,31 +82,43 @@ class Xlsx extends BaseReader
      */
     public function canRead(string $filename): bool
     {
-        if (!File::testFileNoThrow($filename)) {
+        if (!File::testFileNoThrow($filename, self::INITIAL_FILE)) {
             return false;
         }
 
         $result = false;
         $this->zip = $zip = new ZipArchive();
-        $source = fopen($filename,'rb');
-        $baseName = basename($filename);
-        $hash = sha1((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
-        $tmpdir = sys_get_temp_dir() . '/' . $hash;
-        @mkdir($tmpdir, 0777, true);
-        $targetFile = $tmpdir . '/' . $baseName;
-        $target = fopen($targetFile, 'wb');
-        stream_copy_to_stream($source, $target);
 
-        fclose($source);
-        fclose($target);
-
-        if ($zip->open($targetFile,  ZipArchive::CREATE) === true) {
+        if ($zip->open($filename) === true) {
             [$workbookBasename] = $this->getWorkbookBaseName();
             $result = !empty($workbookBasename);
 
             $zip->close();
         }
-        unlink($targetFile);
+
+        if(!$result){
+            $source = fopen($filename,'rb');
+            $baseName = basename($filename);
+            $hash = sha1((new \DateTimeImmutable())->format('Y-m-d H:i:s'));
+            $tmpdir = sys_get_temp_dir() . '/' . $hash;
+            @mkdir($tmpdir, 0777, true);
+            $targetFile = $tmpdir . '/' . $baseName;
+            $target = fopen($targetFile, 'wb');
+            stream_copy_to_stream($source, $target);
+
+            fclose($source);
+            fclose($target);
+
+            if ($zip->open($filename, ZipArchive::CREATE) === true) {
+                [$workbookBasename] = $this->getWorkbookBaseName();
+                $result = !empty($workbookBasename);
+
+                $zip->close();
+            }
+
+            unlink($targetFile);
+        }
+
         return $result;
     }
 
